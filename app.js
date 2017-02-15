@@ -40,13 +40,13 @@ String.prototype.contains = function(content){
   return this.indexOf(content) !== -1;
 }
 var hello;
-hello = ["Hey, fuck face", "What do you want, ass fuck", "Fuck off, I'm masterbating", "What's up?", "Whattttttt", "Hi bronzie", "...what."];
+hello = ["Hey, fuck face", "What do you want, ass fuck", "Fuck off, I'm masterbating", "What's up?", "Whattttttt", "Hi bronzie", "...what.", "New phone, who dis"];
 var unk;
 unk = ["Someone kick this nipple licker", "ENGLISH MOTHERFUCKER, DO YOU SPEAK IT!", "Kill yourself", "Who are you again?", "You're a failed abortion whose birth certificate is an apology from the condom factory.", "You must have been born on a highway, because that's where most accidents happen.", "You are so ugly that when your mama dropped you off at school she got a fine for littering.", "My team is so bad they can't even win a surrender vote", "not even noah can carry you animals gg", "You are a fucking worthless braindead scumfuck mental bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are", "Check your spelling, you autistic fuck"];
 
 bot.dialog('/', function (session) {
     if(session.message.text.toLowerCase().contains('hello')){
-      var rando = Math.floor((Math.random() * 7 ));
+      var rando = Math.floor((Math.random() * 8 ));
       session.send(hello[rando]);
     }
     else if(session.message.text.toLowerCase().contains('fuck')){
@@ -82,7 +82,7 @@ bot.dialog('/', function (session) {
       else if(session.message.text.toLowerCase().contains('ashe')){
         session.send("Ashe\n\n1.)Essence Reaver \n\n2.) Beserkers's Greaves \n\n3.) Runaan's Hurricane \n\n4.) Infinity Edge \n\n5.) Lord Dominik's Regards \n\n6.) Mercurial Scimitar\n\nhttp://champion.gg/champion/Ashe");
       }
-      else if(session.message.text.toLowerCase().contains('sol')){
+      else if(session.message.text.toLowerCase().contains('sol' || 'aurelion')){
         session.send("Aurielon Sol\n\n 1.)Boots of Swiftness \n\n2.) Hextech GLP-800\n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Zhonya's Hourglass \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/AurelionSol");
       }
       else if(session.message.text.toLowerCase().contains('azir')){
@@ -477,4 +477,5 @@ bot.dialog('/', function (session) {
         var rando2 = Math.floor((Math.random() * 11));;
         session.send(unk[rando2]);
       }
+
 });
