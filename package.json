@@ -1,15 +1,17 @@
 {
   "name": "skypebot",
   "version": "1.0.0",
-  "description": "Bot for skype",
+  "description": "",
   "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jason Dhillon",
-  "license": "ISC",
   "dependencies": {
     "botbuilder": "^3.6.0",
     "restify": "^4.3.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+	"start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC"
 }
