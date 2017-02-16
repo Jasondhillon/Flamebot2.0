@@ -29,6 +29,7 @@ bot.on('contactRelationUpdate', function (message) {
 });
 bot.on('typing', function (message) {
   // User is typing
+		
 });
 bot.on('deleteUserData', function (message) {
     // User asked to delete their data
@@ -55,7 +56,7 @@ bot.dialog('/', function (session) {
     else if(session.message.text.toLowerCase().contains('suck my dick')){
       session.send("What dick?");
     }
-    else if(session.message.text.toLowerCase().contains('black')){
+    else if(session.message.text.toLowerCase().contains('black' || 'nigger')){
       session.send("Cx");
     }
     else if(session.message.text.toLowerCase().contains('aatrox')){
