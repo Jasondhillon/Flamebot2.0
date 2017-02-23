@@ -31,7 +31,11 @@ function getChampion(url, session){
 
           for(var j = 0; j<json.length; j++){
             message += json[j].role + '  \n';
-            message += '  \n--------------------------------------------';
+            if(j == 1){
+
+            }else{
+              message += '\n--------------------------------------------';
+            }
             message += '  \n**Most Common Items:**  \n\n'
             for(var i = 0; i<json[j].items.mostGames.items.length; i++){
               message += (json[j].items.mostGames.items[i].name)+'  \n';
