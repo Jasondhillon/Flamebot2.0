@@ -30,19 +30,19 @@ function getChampion(url, session){
           message += json[0].key;
 
           for(var j = 0; j<json.length; j++){
-            message += '  \n----------------------\n';
+            message += '  \n--------------------------------------------\n';
             message += json[j].role;
-            message += '  \n----------------------';
+            message += '  \n--------------------------------------------';
             message += '  \n**Most Common Items:**  \n\n'
             for(var i = 0; i<json[j].items.mostGames.items.length; i++){
-              message += '* '+(json[j].items.mostGames.items[i].name)+'  \n';
+              message += (json[j].items.mostGames.items[i].name)+'  \n';
             }
-            message += '  \n----------------------';
+            message += '  \n--------------------------------------------';
             message += '  \n**Highest Win Percentage Items:**'
             for(var i = 0; i<6; i++){
-              message += '  \n* '+(json[j].items.highestWinPercent.items[i].name) + '\n';
+              message += '  \n'+(json[j].items.highestWinPercent.items[i].name) + '\n';
             }
-            message += '  \n----------------------';
+            message += '  \n--------------------------------------------';
             message += '  \n**Skills:**  \n';
             for(var i = 0; i<json[j].skills.mostGames.order.length;i++){
               if(i == json[0].skills.mostGames.order.length-1){
@@ -52,17 +52,17 @@ function getChampion(url, session){
             }
             
           }
-            message += '  \n----------------------';
+            message += '  \n--------------------------------------------';
             message += '  \n**Runes:**  \n';
             for(var i = 0;i<json[0].runes.mostGames.runes.length; i++){
-            message +=  '* ' +(json[0].runes.mostGames.runes[i].number) + ' ' + (json[0].runes.mostGames.runes[i].name) +'  \n';
+            message +=  (json[0].runes.mostGames.runes[i].number) + ' ' + (json[0].runes.mostGames.runes[i].name) +'  \n';
           }
-            message += '  \n----------------------';
+            message += '  \n--------------------------------------------';
             message += '  \n**Masteries:**  \n';
             for(var i = 0;i<json[0].masteries.mostGames.masteries.length; i++){
-            message += '  \n* '+(json[0].masteries.mostGames.masteries[i].tree)+': ' + (json[0].masteries.mostGames.masteries[i].total) + '  \n';
+            message += '  \n'+(json[0].masteries.mostGames.masteries[i].tree)+': ' + (json[0].masteries.mostGames.masteries[i].total);
           }
-            message += '  \n\n----------------------\n';
+            message += '  \n\n--------------------------------------------\n';
           }
           return message;
       });
