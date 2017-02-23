@@ -27,10 +27,10 @@ function getChampion(url, session){
 
       res.on('end', function(){
           var json =  JSON.parse(body);
-          message += '**['+json[0].key+'**]  \n';
+          message += '**['+json[0].key+']**  \n';
 
           for(var j = 0; j<json.length; j++){
-            message += json[j].role + '\n';
+            message += json[j].role + '  \n';
             message += '  \n--------------------------------------------';
             message += '  \n**Most Common Items:**  \n\n'
             for(var i = 0; i<json[j].items.mostGames.items.length; i++){
