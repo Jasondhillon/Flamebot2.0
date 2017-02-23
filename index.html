@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Jason Dhillon
+		 1/23/17
+		 Test site for learning -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FlatAddicted</title>
+</head>
+
+<body>
+
+<!-- Style -->
+<div>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+		}
+		html{
+			overflow-x: hidden;
+		}
+		a{
+			text-decoration: none;
+			color: #333;
+		}
+		p{
+			font-family: 'Ubuntu', sans-serif;
+			color: #333;
+			text-align: center;
+		}
+
+		h1{
+			font-family: 'Ubuntu', sans-serif;
+			text-align: center;
+			color: #333;
+		}
+
+		h3, h4{
+			font-family: 'Ubuntu', sans-serif;
+			text-align: left;
+			color: dodgerblue;
+		}
+
+		h4{
+			color: gray;
+		}
+
+		ul.header{
+			text-align: right;
+			height: 75px;
+			line-height: 75px;
+			margin: 0px;
+		}
+
+		li{
+			display: inline-block;
+		}
+
+		/* Navbar */
+		li.logo{
+			float:left;
+			vertical-align: middle; 
+			padding-left:75px; 
+			padding-top:5px;
+		}
+		a.header{
+			font-family: 'Ubuntu', sans-serif;
+			color: #333;
+			margin: 30px 40px 20px 0px;
+		}
+
+		div.header{
+			position: fixed;
+			width: 100%;
+			z-index: 2;
+			background-color: white;
+		}
+
+		li:active a{
+			color: dodgerblue; 
+		}
+
+		input.nav_button{
+			display: none;
+			color: #333;
+			float:right;
+			margin-top: 20px;
+			margin-right:100px;
+			background-color: white;
+		}
+
+		/*Splash Screen*/
+		
+		div.splash{
+				margin-top: 80px;
+				position: relative;
+				width: 100%;
+				overflow: hidden;
+				background-color: black;
+				
+		}
+		div.text-box{
+				position: absolute;   
+				height: 100%;
+				text-align: center;    
+				width: 100%;
+				z-index: 1;
+		}
+		img.main{
+				overflow: hidden;
+				min-height: 600px;
+				width:100%;
+				min-width: 100%;
+				opacity: .85;
+				z-index: 0;
+		}
+		p.splashtext{
+				color:white;
+				font-weight: bold;
+				text-transform: uppercase;
+				text-align: left;
+				text-shadow: 1px 1px #111;
+				margin: 0px 0px 0px 150px;
+				padding: 0px;
+				font-size: 48px;
+
+		}
+		p.splashsubtext{
+				color:white;
+				text-shadow: 2px 1px #111;
+				text-align: left;
+				font-size: 24px;
+				margin-left: 150px;
+		}
+		button.call{
+				border-color: white;
+				float: left;
+				font-family: 'Ubuntu', sans-serif;
+				text-transform: uppercase;
+				padding: 10px;
+				margin-left: 150px;
+				border-radius: 3px;
+				background-color: transparent;
+		}
+		a.call{
+				color: white;
+				font-size: 20px;
+		}
+	</style>
+</div>
+
+<script>
+
+</script>
+<!-- Scripts -->
+<div>
+	<script>
+		function preloadImages(array) {
+		    if (!preloadImages.list) {
+			preloadImages.list = [];
+		    }
+		    var list = preloadImages.list;
+		    for (var i = 0; i < array.length; i++) {
+			var img = new Image();
+			img.onload = function() {
+			    var index = list.indexOf(this);
+			    if (index !== -1) {
+				// remove image from the array once it's loaded
+				// for memory consumption reasons
+				list.splice(index, 1);
+			    }
+			}
+			list.push(img);
+			img.src = array[i];
+		    }
+		}
+		preloadImages(["img/menu.png","img/logo.png", "img/main.jpg", "img/3hour.jpg", "img/5hour.jpg", "img/7hour.jpg", "img/9hour.jpg", "img/aboutme.jpg", "img/facebook.svg", "img/twitter.svg", "img/googleplus.svg", "img/instagram.svg", "img/youtube.svg", "img/video.jpg"]);
+	</script>
+
+	<noscript id="deferred-styles">
+    	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+		<link href="css/home.css" rel="stylesheet" type="text/css">
+    </noscript>
+
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+      var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+          webkitRequestAnimationFrame || msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
+</div>
+
+<!-- NavBar -->
+<div class="header">
+		<nav>
+			<input class="nav_button" type="image" src="img/menu.png" width="25px" height="20px"/>
+			<ul class="header">
+				<li class="logo">
+					<img src="img/logo.png"/></li>
+				<li class="header"><a class="header" href="index.html">Home Page</a></li> 
+				<li class="header"><a class="header" href="fishingreports/index.html">Fishing Reports</a></li>
+				<li class="header"><a class="header" href="rates/index.html">Rates/Location</a></li>
+				<li class="header"><a class="header" href="photogallery/index.html">Photo Gallery</a></li>
+				<li class="header"><a class="header" href="testamonials/index.html">Testimonials</a></li>
+			</ul>
+		</nav>
+</div>
+
+<!-- Splash Screen -->
+<div class="splash">
+	<div class="text-box">
+		<p class="splashtext" style="margin-top: 180px;">Orlando Fishing</p>
+		<p class="splashtext">Charters</p>
+		<br class="space"><br class="space"><br class="space"><br class="space">
+		<p id="greeting" class="splashsubtext"></p>
+		<script src="greeting.js"></script>
+		<p class="splashsubtext">ONLY <b>$149 per person</b> For A Limited Time</p>
+		<button class="call"><a class="call" href="tel:1-407-432-5138">CALL TODAY</a></button>
+	</div>
+	<img class="main" src="img/main.jpg"/>
+
+</div>
+
+<!-- Prices -->
+<div class="prices">
+	<p class="fishtype" style="padding: 30px">REDFISH - TARPON - SEA TROUT - SNOOK</p>
+	<h1 class="fish">MOSQUITO LAGOON</h1>
+	<p style="padding: 30px">Just 45 minutes <b>From Orlando Florida</b> and all the major theme parks</p>
+
+	<div style="display: inline;">
+		<figure>
+			<img src="img/3hour.jpg" width="245px" height="163px">
+			<figcaption>3 Hour Adventure</figcaption>
+			<figcaption class="subtext">Only $149</figcaption>
+		</figure>
+		<figure>
+			<img src="img/5hour.jpg" width="245px" height="163px">
+			<figcaption>5 Hour Adventure</figcaption>
+			<figcaption class="subtext">Only $179</figcaption>
+		</figure>
+		<figure>
+			<img src="img/7hour.jpg" width="245px" height="163px">
+			<figcaption>7 Hour Adventure</figcaption>
+			<figcaption class="subtext">Only $209</figcaption>
+		</figure>
+		<figure>
+			<img src="img/9hour.jpg" width="245px" height="163px">
+			<figcaption>9 Hour Adventure</figcaption>
+			<figcaption class="subtext">Only $239</figcaption>
+		</figure>
+	</div>
+</div>
+
+<!-- Bio -->
+<div class="bio">
+	<h1 style="text-transform: uppercase; letter-spacing: 5px;">Captain Tom Carver</h1>
+	<p style="text-transform: capitalize; color:gray; font-size: 18px;">US coast guard licensed and commercially insured</p>
+	<img class="bio" src="img/aboutme.jpg" width="700px" height="450px">
+	<p class="bio"><b>ORLANDO SALTWATER FISHING</b></p>
+	<p class="bio">Orlando Fishing Charters
+
+	 are just a short drive from the area attractions, visitors can find some of the best fishing in the state, not to mention the best Red fishing in the World. This area of Central Florida offers both beginners and expert anglers the opportunity to catch record sized
+		Redfish, Sea Trout, Snook, Tarpon and more. You’re sure to see “tailing” Redfish, Snook hiding in mangroves, rolling Tarpon, Sea Trout, as well as Dolphins, Manatees and many other animals in their natural environment. Redfish, one of the more popular fish species in the area, and one that most anglers and fishing guides target. They are exceptional fighters and can be caught year round. Also known as Red Drum, these fish can exceed forty plus pounds during the summer when they gather and spawn. During the winter months, Redfish catches normally run in the three to twelve pound range. Fishing guides can catch numerous Redfish per charter, and stories of one hundred Redfish per day is not unheard of. The crystal clear, gin like color of the water during the winter makes sight fishing, and finding fish much easier for the trained and untrained eye. Flataddicted will give both beginners and expert anglers an opportunity to sight cast in shallow waters to all the area has to offer. Fishing the waters near Orlando are the best-kept secrets in the shallow water fishing arena. Whether you are in town for a vacation or a convention this is a one-of-a-kind experience you are sure to never forget. By booking a trip with Flataddicted, we will make sure the trip is a success every time out. From a friendly voice on the phone to a full time guide on the water 250 days a year. Flataddicted is the best choice for your day out on the water. Flataddicted has been featured in many fishing magazines and numerous times on ESPN radio. Guided television celebrities and appeared on several nationally televised fishing shows. Make no mistake you have found the hardest working and most energetic guide on the water.</p>
+
+
+
+
+	<br>
+</div>
+
+<!-- Video -->
+<div>
+	<center><iframe width="80%" height="400px" src="https://www.youtube.com/embed/OxSN03L93Co" frameborder="0" allowfullscreen></iframe></center>
+</div>
+
+<!-- Blog -->
+<div id="normalblog">
+	<h1>LATEST FISHING REPORTS</h1>
+	<p>Weekly Updates</p>
+	<br>
+
+	<table style="width:80%;">	
+		<tr>
+				<div class="blog">
+					<td>
+						<a href="fishingreports/blog6.html"><img src="img/blog6.jpg" width="200px" height="150px;" style="padding: 20px" ></a>
+					</td>
+					
+					<td>
+						<h3>Orlando Fishing Reports</h3>
+						<a href="fishingreports/blog6.html"><h1 style="text-align: left;">Mosquito Lagoon</h1></a>
+						<p style="text-align: left;">Mosquito Lagoon February 12th - 2017 Report: The word for this past week will be wow. That simple little word is exactly what sums up the fishing report for the ...</p>
+						<br>
+					</td>
+				</div>
+		</tr>
+
+		<tr>
+			<div class="blog">
+				<td colspan="2">
+					<hr>
+				</td>
+			</div>
+		</tr>
+
+		<tr>
+				<div class="blog">
+					<hr>
+					<td>
+						<a href="fishingreports/blog0.html"><img src="img/blog0.jpg" width="200px" height="150px;" style="padding: 20px" ></a>
+					</td>
+					
+					<td>
+						<h3>Orlando Fishing Reports</h3>
+						<a href="fishingreports/blog0.html"><h1 style="text-align: left;">Orlando Florida Fishing Charters</h1></a>
+						<p style="text-align: left;">January 29th 2017 – Orlando Florida Fishing Charters and fishing trips near the Mosquito Lagoon have been targeting huge black drum this past week. This time of the year</p>
+						<br>
+					</td>
+				</div>
+		</tr>
+		
+		<tr>
+			<div class="blog">
+				<td colspan="2">
+					<hr>
+				</td>
+			</div>
+		</tr>
+
+		<tr>
+			<div class="blog">
+				<td>
+					<a href="fishingreports/blog1.html"><img src="img/blog1.jpg" width="200px" height="150px" style="padding: 20px"></a>
+				</td>
+
+				<td>
+					<h3>Orlando Fishing Reports</h3>
+					<a href="fishingreports/blog1.html"><h1 style="text-align: left;">Incredible Tailing Redfish Action!</h1></a>
+					<p style="text-align: left;">Incredible Tailing Redfish Action! Winter is that magical time of the year when Redfish really turn on and start offering pure sight casting opportunities. For the past 3 to...</p>
+					<br>
+				</td>
+				
+			</div>
+		</tr>
+
+		<tr>
+			<div class="blog">
+				<td colspan="2">
+					<hr>
+				</td>
+			</div>
+		</tr>
+
+	</table>
+
+	<center><button class="moreReports"><a class="reports" href="fishingreports/index.html">MORE REPORTS</a></button></center>
+</div>
+<div id="mobileblog">
+	<h1>LATEST FISHING REPORTS</h1>
+	<p>Weekly Updates</p>
+	<br>
+
+			<div class="blog">
+					<hr>
+					<img src="img/blog6.jpg" width="100%" height="auto;" style="padding-top: 20px; margin: auto;" >
+					<h3>Orlando Fishing Reports</h3>
+					<a href="fishingreports/blog6.html"><h1 style="text-align: left;">Mosquito Lagoon</h1></a>
+					<p style="text-align: left;">Mosquito Lagoon February 12th - 2017 Report: The word for this past week will be wow. That simple little word is exactly what sums up the fishing report for the ...</p>
+					<br>
+			</div>
+
+			<div class="blog">
+					<hr>
+						<img src="img/blog0.jpg" width="100%" height="auto;" style="padding-top: 20px; margin: auto;" >
+						<h3>Orlando Fishing Reports</h3>
+						<a href="fishingreports/blog0.html"><h1 style="text-align: left;">Orlando Fishing Charters</h1></a>
+						<p style="text-align: left;">  January 29th 2017 - Orlando Florida Fishing Charters and fishing trips near the Mosquito Lagoon have been targeting huge black drum this past week. This time of the year ...</p>
+						<br>
+				</div>
+
+
+			<div class="blog">
+					<hr>
+						<img src="img/blog1.jpg" width="100%" height="auto;" style="padding-top: 20px; margin: auto;" >
+						<h3>Orlando Fishing Reports</h3>
+						<a href="fishingreports/blog1.html"><h1 style="text-align: left;">Incredible Tailing Redfish Action!</h1></a>
+						<p style="text-align: left;">Incredible Tailing Redfish Action! Winter
+							is that magical time of the year when Redfish
+							really turn on and start offering pure sight
+							casting opportunities. For the past 3 to …</p>
+						<br>
+				</div>
+
+
+	<center><button class="moreReports"><a class="reports" href="fishingreports/index.html">MORE REPORTS</a></button></center>
+</div>
+
+<!-- Contact Form -->
+<div style="padding-top: 50px; background-color: #f7faff;">
+	<h4 style="text-align: center;">I'D LOVE TO HEAR FROM YOU</h4>
+	<h1 style="letter-spacing: 3px">CONTACT ME ANY TIME</h1>
+	<br>
+	<h4 style="text-align: center;">Lets Go Fishing!</h4>
+	<br><br><br>
+
+	<table>
+		<tr>
+			<td>
+				<form id="contactme" action="mail.php" method="post" target="sent">
+					
+					<input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?>" />
+
+					<label for="name">NAME</label>
+					<input id="name" type="text" required name="name">
+
+					<label for="people">NUMBER OF PEOPLE</label>
+					<input id="people" type="text" required name="people">
+
+					<label for="email">YOUR EMAIL</label>
+					<input id="email" type="text" required name="email">
+
+					<label for="phone">YOUR PHONE</label>
+					<input id="phone" type="text" required name="phone">
+
+					<label for="subject">SUBJECT</label>
+					<input id="subject" type="text" required name="subject">
+			
+					<br>
+					<label for="message">YOUR MESSAGE</label>
+					<textarea id="message" name="message" cols="25" rows="5" required></textarea>
+					<br>
+					<input type="button" id="btnsubmit" value="Submit" onclick="submitForm()">
+					<br><br><br>
+				</form>
+
+				<script>
+					function submitForm() {
+						var frm = document.getElementById('contactme');
+						frm.submit(); // Submit
+						frm.reset();  // Reset
+						return true;
+					}
+				</script>
+
+				<iframe class="sent" name="sent" frameborder="0" border="0" cellspacing="0" style="border-style: none; width:100%; height:50px;"></iframe>
+
+				
+			</td>
+
+			<td id="contact_pc">
+				<div>
+					<h1 style="text-align: unset">Hours of Operation:</h1>
+					<h4>Monday through Sunday open 6am to 10pm</h4>
+					<br><br><br><br>
+					<h1 style="text-align: unset">Business Information:</h1>
+					<h4><img id="icon" src="img/location.png">1103 Garden ST. Titusville FL, 32796</h4>
+					<h4><img id="icon" src="img/phone.png">1-407-432-5138</h4>
+					<h4><img id="icon" src="img/mail.png"><a style="text-decoration: underline; color:dodgerblue" href="mailto:flataddicted@gmail.com">flataddicted@gmail.com</a></h4>
+				</div>
+			</td>
+		</tr>
+
+	</table>
+</div>
+
+<!-- Footer -->
+<footer>
+
+	<table style="width: 100%; table-layout: fixed" cellspacing="0" cellpadding="0">
+
+		<tr>
+			<td>
+				<p class="footer">THE SOCIAL THING</p>
+				<ul class="footer">
+					<li><a href="https://www.facebook.com/Flataddicted"> <img src="img/facebook.svg" alt="" width="50px" height="50px"></li>
+					<li><a href="https://twitter.com/flataddicted"> <img src="img/twitter.svg" alt="" width="50px" height="50px"></li>
+					<li><a href="https://plus.google.com/+TomCarver"> <img src="img/googleplus.svg" alt="" width="50px" height="50px"></li>
+					<li><a href="https://www.instagram.com/flataddicted/"> <img src="img/instagram.svg" alt="" width="50px" height="50px"></li>
+					<li><a href="https://www.youtube.com/channel/UCXz5g_fsJJOgfADpsXqn34Q"> <img src="img/youtube.svg" alt="" width="50px" height="50px"></li>
+				</ul>
+			</td>
+
+				
+			<td id="normalblog"style="padding-right: 100px; padding-top:50px; float: right;">
+					<h4>Monday through Sunday open 6am to 10pm</h4>
+					<h4><img id="icon" src="img/location2.png">1103 Garden ST. Titusville FL, 32796</h4>
+					<h4><img id="icon" src="img/phone2.png">1-407-432-5138</h4>
+					<h4><img id="icon" src="img/mail2.png"><a style="text-decoration: underline; color:dodgerblue" href="mailto:flataddicted@gmail.com">flataddicted@gmail.com</a></h4>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="mobileblog">
+				<ul style="margin: 0 auto; width: 400px; padding: 20px;">
+					<li class="footer"><h4>Monday through Sunday open 6am to 10pm</h4></li>
+					<li class="footer"><h4><img id="icon" src="img/location2.png">1103 Garden ST. Titusville FL, 32796</h4></li>
+					<li class="footer"><h4><img id="icon" src="img/phone2.png">1-407-432-5138</h4></li>
+					<li class="footer"><h4><img id="icon" src="img/mail2.png">
+						<a style="text-decoration: underline;
+					 	color:dodgerblue" href="mailto:flataddicted@gmail.com">
+						 flataddicted@gmail.com</a></h4></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+
+</footer>
+
+</body>
+</html>

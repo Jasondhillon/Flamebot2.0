@@ -13,6 +13,67 @@ var connector = new builder.ChatConnector({
     appId: "2c2a7e41-040a-4fcd-b10a-2480ac3c488e",
     appPassword: "apKa4DpwPL7nVdD77nDtazg"
 });
+
+
+var message = '';
+function getChampion(url, session){
+  message = '';
+  var http = require('http');
+  http.get(url, function(res){
+      var body = '';
+      res.on('data', function(chunk){
+          body += chunk;
+      });
+
+      res.on('end', function(){
+          var json =  JSON.parse(body);
+          message += json[0].key;
+
+          for(var j = 0; j<json.length; j++){
+            message += '  \n----------------------\n';
+            message += json[j].role;
+            message += '  \n----------------------';
+            message += '  \n**Most Common Items:**  \n\n'
+            for(var i = 0; i<json[j].items.mostGames.items.length; i++){
+              message += '* '+(json[j].items.mostGames.items[i].name)+'  \n';
+            }
+            message += '  \n----------------------';
+            message += '  \n**Highest Win Percentage Items:**'
+            for(var i = 0; i<6; i++){
+              message += '  \n* '+(json[j].items.highestWinPercent.items[i].name) + '\n';
+            }
+            message += '  \n----------------------';
+            message += '  \n**Skills:**  \n';
+            for(var i = 0; i<json[j].skills.mostGames.order.length;i++){
+              if(i == json[0].skills.mostGames.order.length-1){
+                message += (json[j].skills.mostGames.order[i]);
+              }else{
+                message += (json[j].skills.mostGames.order[i] + '->');
+            }
+            
+          }
+            message += '  \n----------------------';
+            message += '  \n**Runes:**  \n';
+            for(var i = 0;i<json[0].runes.mostGames.runes.length; i++){
+            message +=  '* ' +(json[0].runes.mostGames.runes[i].number) + ' ' + (json[0].runes.mostGames.runes[i].name) +'  \n';
+          }
+            message += '  \n----------------------';
+            message += '  \n**Masteries:**  \n';
+            for(var i = 0;i<json[0].masteries.mostGames.masteries.length; i++){
+            message += '  \n* '+(json[0].masteries.mostGames.masteries[i].tree)+': ' + (json[0].masteries.mostGames.masteries[i].total) + '  \n';
+          }
+            message += '  \n\n----------------------\n';
+          }
+          return message;
+      });
+  });
+}
+
+
+function getURL(champion){
+    return url = 'http://api.champion.gg/champion/'+champion+'?api_key=dd088c0e77c1739a23660410de9edb12';
+}
+
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 //Bot on
@@ -45,6 +106,8 @@ hello = ["Hey, fuck face", "What do you want, ass fuck", "Fuck off, I'm masterba
 var unk;
 unk = ["Someone kick this nipple licker", "ENGLISH MOTHERFUCKER, DO YOU SPEAK IT!", "Kill yourself", "Who are you again?", "You're a failed abortion whose birth certificate is an apology from the condom factory.", "You must have been born on a highway, because that's where most accidents happen.", "You are so ugly that when your mama dropped you off at school she got a fine for littering.", "My team is so bad they can't even win a surrender vote", "not even noah can carry you animals gg", "You are a fucking worthless braindead scumfuck mental bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are", "Check your spelling, you autistic fuck"];
 
+
+
 bot.dialog('/', function (session) {
     if(session.message.text.toLowerCase().contains('hello')){
       var rando = Math.floor((Math.random() * 8 ));
@@ -56,422 +119,561 @@ bot.dialog('/', function (session) {
     else if(session.message.text.toLowerCase().contains('suck my dick')){
       session.send("What dick?");
     }
-    else if(session.message.text.toLowerCase().contains('black' || 'nigger')){
+    else if(session.message.text.toLowerCase().contains('black')){
       session.send("Cx");
     }
     else if(session.message.text.toLowerCase().contains('aatrox')){
-        session.send("Aatrox\n\n1.) Hextech Gunblade\n\n2.) Enchantment: Bloodrazer \n\n3.) Ravenous Hydra \n\n 4.) Blade of the Ruined King \n\n5.) Randuins Omen \n\n6.) Guardian Angel \n\nBoots: Mercury Treads or Ninja Tabi \n\nhttp://champion.gg/champion/Aatrox");
+       getChampion(getURL('aatrox', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Aatrox");}, 350);
+       
       }
       else if(session.message.text.toLowerCase().contains('ahri')){
-        session.send("Ahri\n\n1.) Morellonomicon \n\n2.) Luden's Echo \n\n3.) Void Staff \n\n4.) Hextech Protobelt-01 \n\n5.) Rabadon's Deathcap \n\n6.) Abyssal Scepter \n\nBoots: Sorcerer's Shoes or Ionian Boots of Lucidity\n\nhttp://champion.gg/champion/Ahri");
+        getChampion(getURL('ahri', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ahri");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('alistar')){
-        session.send("Alistar\n\n1.) Redemption \n\n2.) Ruby Sightstone \n\n3.) Locket of the Iron Solari \n\n4.) Eye of the Equinox \n\n5.) Face of the Mountain \n\n6.) Talisman of Ascenison \n Boots: Boots of Mobility or Ionian Boots of Lucidity\n\nhttp://champion.gg/champion/Alistar");
+        getChampion(getURL('alistar', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Alistar");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('amumu')){
-        session.send("Amumu\n\n1.)Skirmishers: Cinderhulk \n\n2.) Dead Man's Plate \n\n3.) Rylai's Crystal Scepter \n\n4.) Eye of the Equinox \n\n5.) Face of the Mountain \n\n6.) Frozen Heart \n\nBoots: Sorcerer's Shoes or Boots of Mobility\n\nhttp://champion.gg/champion/Amumu");
+        getChampion(getURL('amumu', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Amumu");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('anivia')){
-        session.send("Anivia\n\n1.) Rod of Ages \n\n2.) Seraph's Embrace \n\n3.) Void Staff \n\n4.) Rabadon's Deathcap \n\n5.) Zhonya's Hourglass \n\n6.) Morellonomicon \n\nBoots: Sorcerer's Shoes or Ionian Boots of Lucidity\n\nhttp://champion.gg/champion/Anivia");
+        getChampion(getURL('anivia', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Anivia");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('akali')){
-        session.send("Akali\n\n1.) Hextech-Gunblade \n\n2.) Lich Bane \n\n3.) Zhonya's Hourglass \n\n4.) Void Staff \n\n5.) Guardian's Angel \n\n6.) Sorcerer's Boots \n\nhttp://champion.gg/champion/Akali");
+        getChampion(getURL('akali', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Akali");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('annie')){
-        session.send("Annie\n\n1.)Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Sorcerer's Shoes\n\nhttp://champion.gg/champion/Annie");
+       getChampion(getURL('annie', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Annie");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('ashe')){
-        session.send("Ashe\n\n1.)Essence Reaver \n\n2.) Beserkers's Greaves \n\n3.) Runaan's Hurricane \n\n4.) Infinity Edge \n\n5.) Lord Dominik's Regards \n\n6.) Mercurial Scimitar\n\nhttp://champion.gg/champion/Ashe");
+        getChampion(getURL('ashe', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ashe");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('sol' || 'aurelion')){
-        session.send("Aurielon Sol\n\n 1.)Boots of Swiftness \n\n2.) Hextech GLP-800\n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Zhonya's Hourglass \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/AurelionSol");
+        getChampion(getURL('AurelionSol', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/AurelionSol");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('azir')){
-        session.send("Azir\n\n1.)Nashor's Tooth \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Void Staff \n\n5.) Rabadon's Deathcap \n\n6.) Zhonya'a Hourglass\n\nhttp://champion.gg/champion/Azir");
+        getChampion(getURL('azir', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Azir");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('bard')){
-        session.send("Bard\n\n1.)Sightstone \n\n2.) Boots of Mobility \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Frozen Heart \n\n6.) Banshee's Veil\n\nhttp://champion.gg/champion/Bard");
+        getChampion(getURL('bard', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/bard");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('blitzcrank')){
-        session.send("Blitzcrank\n\n 1.)Sightstone \n\n2.) Boots of Mobility \n\n3.) Face of the Mountain \n\n4.) Locket of the Iron Solari \n\n5.) Redemption \n\n6.) Knight's Vow\n\nhttp://champion.gg/champion/Blitzcrank");
+        getChampion(getURL('blitzcrank', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Blitzcrank");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('brand')){
-        session.send("Brand\n\n1.)Sightstone \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Void Staff\n\n6.) Morellonomicon\n\nhttp://champion.gg/champion/Brand");
+        getChampion(getURL('brand', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Brand");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('braum')){
-        session.send("Braum\n\n 1.)Sightstone \n\n2.) Boots of Mobility \n\n3.) Face of the Mountain \n\n4.) Locket of the Iron Solari \n\n5.) Redemption\n\n6.) Knight's Vow\n\nhttp://champion.gg/champion/Braum");
+        getChampion(getURL('braum', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Braum");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('caitlyn')){
-        session.send("Caitlyn\n\n 1.)Beserker's Greaves \n\n2.) Runaan's Hurricane\n\n3.) Infinity Edge \n\n4.) Rapid Firecannon \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Caitlyn");
+        getChampion(getURL('caitlyn', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Caitlyn");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('camille')){
-        session.send("Camille\n\n 1.)Trinity Force \n\n2.)Ionian Boots of Lucidity \n\n3.) Ravenous Hydra \n\n4.) Sterak's Gage\n\n5.) Guardian Angel \n\n6.) Mortal Reminder\n\nhttp://champion.gg/champion/Camille");
+        getChampion(getURL('camille', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Camille");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('cassiopeia')){
-        session.send("Cassiopeia\n\n 1.)Morellonomicon \n\n2.)Rylai's Crystal Scepter \n\n3.) Achangel's Staff \n\n4.) Void Staff\n\n5.) Rabadon's Deathcap \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Cassiopeia");
+        getChampion(getURL('cassiopeia', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Cassiopeia");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('cho')){
-        session.send("Cho' Gath\n\n 1.) Rod of Ages \n\n2.) Mercury's Treads \n\n3.) Frozen Heart\n\n4.) Spirit Visage\n\n5.) Dead Man's Plate \n\n6.) Abyssal Scepter\n\nhttp://champion.gg/champion/Chogath");
+        getChampion(getURL('chogath', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Chogath");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('corki')){
-        session.send("Corki\n\n1.) Trinity Force \n\n2.) Sorcerer's Boots \n\n3.) Hextech Gunblade \n\n4.) Infinity Edge \n\n5.) Rapid Firecannon \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Corki");
+         getChampion(getURL('corki', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Corki");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('darius')){
-        session.send("Darius\n\n1.) Black Cleaver \n\n2.) Mercury Treads \n\n3.) Dead Man's Plate \n\n4.) Spirit Visage\n\n5.) Randuin's Omen \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Darius");
+         getChampion(getURL('darius', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Darius");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('diana')){
-        session.send("Diana\n\n1.) Abyssal Scepter \n\n2.) Sorcerer's Boots \n\n3.) Nashor's Tooth \n\n4.) Zhonya's Hourglass\n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Diana");
+         getChampion(getURL('diana', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Diana");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('mundo')){
-        session.send("Mundo\n\n1.) Sunfire Cape \n\n2.) Boots of Swiftness \n\n3.) Spirit Visage \n\n4.) Warmog's Amor \n\n5.) Thornmail \n\n6.) Randuin's Omen\n\nhttp://champion.gg/champion/DrMundo");
+         getChampion(getURL('drmundo', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Drmundo");}, 350);
 
       }else if(session.message.text.toLowerCase().contains('draven')){
-        session.send("Draven\n\n1.) Beserker's Greaves \n\n2.) Infinity Edge \n\n3.) Phantom Dancer \n\n4.) Blood Thirster \n\n5.) Lord Dominik's Regards \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Draven");
+         getChampion(getURL('draven', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Draven");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('ekko')){
-        session.send("Ekko\n\n1.) Hextech Protobelt-01 \n\n2.) Sorcerer's Boots \n\n3.) Lich Bane \n\n4.) Zhonya's Hourglass \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Ekko");
+         getChampion(getURL('ekko', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ekko");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('elise')){
-        session.send("Elise\n\n1.) Stalker's: Runic Echos \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Hextech Protobelt-01 \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Elise");
+         getChampion(getURL('elise', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Elise");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('evelynn')){
-        session.send("Evelynn\n\n1.) Enchanment: Runic Echos \n\n2.) Boots of Mobility \n\n3.) Hextech Protobelt-01 \n\n4.) Lich Bane \n\n5.) Rylai's Crystal Scepter \n\n6.) Liandry's Torment\n\nhttp://champion.gg/champion/Evelynn");
+         getChampion(getURL('evelynn', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Evelynn");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('ezreal')){
-        session.send("Ezreal\n\n1.) Manamune \n\n2.) Ionain Boots of Lucidity \n\n3.) Trinity Force \n\n4.) Blad of the Runied King \n\n5.) Lord Dominik's Regards \n\n6.) Mercurial Scimitar\n\nhttp://champion.gg/champion/Ezreal");
+         getChampion(getURL('ezreal', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ezreal");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('fiddle')){
-        session.send("Fiddle\n\n1.) Enchanment: Runic Echos \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Abyssal Scepter \n\n5.) Void Staff \n\n6.) Rylai's Crystal Scepter\n\nhttp://champion.gg/champion/Fiddlesticks");
+         getChampion(getURL('fiddlesticks', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Fiddlesticks");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('fiora')){
-        session.send("Fiora\n\n1.) Ravenous Hydra \n\n2.) Mercury Treads \n\n3.) Black Cleaver \n\n4.) Blood Thirster \n\n5.) Guardian's Angel \n\n6.) Spirit Visage\n\nhttp://champion.gg/champion/Fiora");
+         getChampion(getURL('fiora', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Fiora");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('fizz')){
-        session.send("Fizz\n\n1.) Lich Bane \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Guardian's Angel\n\nhttp://champion.gg/champion/Fizz");
+         getChampion(getURL('fizz', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Fizz");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('galio')){
-        session.send("Galio\n\n1.) Rod of Ages \n\n2.) Mercury Treads \n\n3.) Abyssal Scepter \n\n4.) Spirit Visage \n\n5.) Zhonya's Hourglass \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Galio");
+         getChampion(getURL('galio', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Galio");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('gang')){
-        session.send("Gangplank\n\n1.) Trinity Force \n\n2.) Ionain Boots of Lucidity \n\n3.) Infinity Edge \n\n4.) Statikk Shiv \n\n5.) Phantom Dancer \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Gangplank");
+         getChampion(getURL('Gangplank', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Gangplank");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('dankplank')){
-        session.send("Gangplank\n\n1.) Trinity Force \n\n2.) Ionain Boots of Lucidity \n\n3.) Infinity Edge \n\n4.) Statikk Shiv \n\n5.) Phantom Dancer \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Gangplank");
+         getChampion(getURL('Gangplank', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Gangplank");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('garen')){
-        session.send("Garen\n\n1.) Black Cleaver \n\n2.) Mercury Treads \n\n3.) Sunfire Cape \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Warmog's Armor\n\nhttp://champion.gg/champion/Garen");
+        getChampion(getURL('Garen', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Garen");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('gnar')){
-        session.send("Gnar\n\n1.) Black Cleaver \n\n2.) Mercury Treads \n\n3.) Frozen Mallet \n\n4.) Randuin's Omen \n\n5.) Banshee's Veil \n\n6.) Maw of Malmortius\n\nhttp://champion.gg/champion/Gnar");
+        getChampion(getURL('Gnar', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Gnar");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('gragas')){
-        session.send("Gragas\n\n1.) Enchanment: Runic Echos \n\n2.) Ionian Boots of Lucidity \n\n3.) Iceborn Gauntlet \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Locket of the Iron Solari\n\nhttp://champion.gg/champion/Gragas");
+        getChampion(getURL('Gragas', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Gragas");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('graves')){
-        session.send("Graves\n\n1.) Enchanment: Warrior \n\n2.) Beserker's Greaves \n\n3.) Phantom Dancer \n\n4.) Death's Dance \n\n5.) Maw of Malmortius \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Graves");
+        getChampion(getURL('Graves', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Graves");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('hecarim')){
-        session.send("Hecarim\n\n1.) Boots of Swiftness \n\n2.) Trinity Force \n\n3.) Enchanment: Cinderhulk \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Guardian Angels\n\nhttp://champion.gg/champion/Hecarim");
+        getChampion(getURL('hecarim', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Hecarim");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('donger')){
-        session.send("Heimdonger\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Rylai's Crystal Scepter \n\n5.) Liandry's Torment \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Heimerdinger");
+        getChampion(getURL('Heimerdinger', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Heimerdinger");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('illaoi')){
-        session.send("Illaoi\n\n1.) Black Cleaver \n\n2.) Mercury Treads \n\n3.) Sterak's Gage \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Death's Dance\n\nhttp://champion.gg/champion/Illaoi");
+        getChampion(getURL('Illaoi', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Illaoi");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('irelia')){
-        session.send("Irelia\n\n1.) Trinity Force \n\n2.) Ninja Tabi \n\n3.) Randuin's Omen \n\n4.) Spirit Visage \n\n5.) Blade of the Ruined King \n\n6.) Guardian's Angel\n\nhttp://champion.gg/champion/Irelia");
+        getChampion(getURL('Irelia', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Irelia");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('ivern')){
-        session.send("Ivern\n\n1.) Ionain Boots of Lucidity \n\n2.) Athene's Unholy Grail \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Guardian's Angel \n\n6.) Dead Man's Plate\n\nhttp://champion.gg/champion/Ivern");
+        getChampion(getURL('Ivern', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ivern");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('janna')){
-        session.send("Janna\n\n1.) Sightstone \n\n2.) Boots of Mobility \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Ardent Censer \n\n6.) Mikael's Crucible\n\nhttp://champion.gg/champion/Janna");
+        getChampion(getURL('Janna', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Janna");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('jarven')){
-        session.send("Jarven IV\n\n1.) Stalkers: Warrior\n\n2.) Mercury Treads \n\n3.) Black Cleaver \n\n4.) Titanic Hydra \n\n5.) Randuin's Omen \n\n6.) Maw of Malmortius\n\nhttp://champion.gg/champion/JarvanIV");
+        getChampion(getURL('JarvenIV', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/JarvanIV");}, 350);
       }
        else if(session.message.text.toLowerCase().contains('j4')){
-        session.send("Jarven IV\n\n1.) Stalkers: Warrior\n\n2.) Mercury Treads \n\n3.) Black Cleaver \n\n4.) Titanic Hydra \n\n5.) Randuin's Omen \n\n6.) Maw of Malmortius\n\nhttp://champion.gg/champion/JarvanIV");
+        getChampion(getURL('JarvenIV', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/JarvanIV");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('jax')){
-        session.send("Jax\n\n1.) Trinity Force \n\n2.) Mercury Treads \n\n3.) Hextech Gunblade \n\n4.) Randuin's Omen \n\n5.) Spirit Visage \n\n6.) Guinsoo's Rageblade\n\nhttp://champion.gg/champion/Jax");
+        getChampion(getURL('Jax', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Jax");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('jayce')){
-        session.send("Jayce\n\n1.) Youmuu's Ghostblade \n\n2.) Ionian Boots of Lucidity \n\n3.) Black Cleaver \n\n4.) Blood Thirster \n\n5.) Lord Dominik's Regards \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Jayce");
+        getChampion(getURL('Jayce', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Jayce");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('jhin')){
-        session.send("Jhin\n\n1.) Essence Reaver \n\n2.) Boots of Swiftness \n\n3.) Rapid Firecannon \n\n4.) Infinty Edge \n\n5.) Lord Dominik's Regards \n\n6.) Mercurial Scimitar\n\nhttp://champion.gg/champion/Jhin");
+        getChampion(getURL('Jhin', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Jhin");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('jinx')){
-        session.send("Jinx\n\n1.) Runaan's Hurricane \n\n2.) Beserker's Greaves \n\n3.) Infinity Edge \n\n4.) Rapid Firecannon \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Jinx");
+        getChampion(getURL('Jinx', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Jinx");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kalista')){
-        session.send("Kalista\n\n1.) Blade of the Ruined King \n\n2.) Beserker's Greaves \n\n3.) Runaan's Hurricane \n\n4.) Blood Thirster \n\n5.) Lord Domink's Regards \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Kalista");
+        getChampion(getURL('Kalista', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kalista");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('karma')){
-        session.send("Karma\n\n1.) Sightstone \n\n2.) Ionian Boots of Lucidity \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Ardent Censer \n\n6.) Mikael's Crucible\n\nhttp://champion.gg/champion/Karma");
+        getChampion(getURL('Karma', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Karma");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('karthus')){
-        session.send("Karthus\n\n1.) Rod of Ages \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Karthus");
+        getChampion(getURL('Karthus', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Karthus");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kassadin')){
-        session.send("Kassadin\n\n1.) Rod of Ages \n\n2.) Ionian Boots of Lucidity \n\n3.) Lich Bane \n\n4.) Zhonya's Hourglass \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Kassadin");
+        getChampion(getURL('Kassadin', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kassidin");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('katarina')){
-        session.send("Katarina\n\n1.) Hexblade Gunblade \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Void Staff \n\n5.) Rabadon's Deathcap \n\n6.) Rylai Crystal Scepter\n\nhttp://champion.gg/champion/Katarina");
+        getChampion(getURL('Katarina', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Katarina");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kayle')){
-        session.send("Kayle\n\n1.) Nashor's Tooth \n\n2.) Beserker's Greaves \n\n3.) Guinsoo's Rageblade \n\n4.) Runaan's Hurricane \n\n5.) Rylai's Crystal Scepter \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Kayle");
+        getChampion(getURL('Kayle', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kayle");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kennen')){
-        session.send("Kennen\n\n1.) Hextech Protobelt-01 \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Rylai's Crystal Scepter\n\nhttp://champion.gg/champion/Kennen");
+        getChampion(getURL('Kennen', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kennen");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kha')){
-        session.send("Kha'zix\n\n1.) Stalkers: Warrior \n\n2.) Ninja Tabi \n\n3.) Black Cleaver \n\n4.) Duskblade of Draktharr \n\n5.) Ravenous Hydra \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Khazix");
+        getChampion(getURL('Khazix', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Khazix");}, 350);;
       }
       else if(session.message.text.toLowerCase().contains('kindred')){
-        session.send("Kindred\n\n1.) Skirmishers: Bloodrazer \n\n2.) Beserker's Greaves \n\n3.) Runaan's Hurricane \n\n4.) Black Cleaver \n\n5.) Frozen Mallet \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Kindred");
+        getChampion(getURL('Kindred', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kindred");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kled')){
-        session.send("Kled\n\n1.) Black Cleaver \n\n2.) Mercury Treads \n\n3.) Titanic Hydra \n\n4.) Randuin's Omen \n\n5.) Maw of Malmortius \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Kled");
+        getChampion(getURL('Kled', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kled");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('kog')){
-        session.send("Kog'Maw\n\n1.) Trinity Force \n\n2.) Beserker's Greaves \n\n3.) Blade of the Runied King \n\n4.) Runaan's Hurricane \n\n5.) Infinty Edge \n\n6.) Banshee's Veil\n\nhttp://champion.gg/champion/KogMaw");
+        getChampion(getURL('KogMaw', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/KogMaw");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('leblanc')){
-        session.send("LeBlanc\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Void Staff \n\n5.) Rabadon's Deathcap \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Leblanc");
+        getChampion(getURL('LeBlanc', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/LeBlanc");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('lee')){
-        session.send("Lee Sin\n\n1.) Trackers: Warrior \n\n2.) Boots of Mobility \n\n3.) Black Cleaver \n\n4.) Dead Man's Plate \n\n5.) Maw of Malmortius \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/LeeSin");
+        getChampion(getURL('LeeSin', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/LeeSin");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('leona')){
-        session.send("Leona\n\n1.) Sightstone \n\n2.) Facce of the Mountain \n\n3.) Boots of Mobility \n\n4.) Locket of the Iron Solari \n\n5.) Redemption \n\n6.) Knight's Vow\n\nhttp://champion.gg/champion/Leona");
+        getChampion(getURL('Leona', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Leona");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('lissandra')){
-        session.send("Lissandra\n\n1.) Rod of Ages \n\n2.) Sorcerer's Boots \n\n3.) Abyssal Scepter \n\n4.) Zhonya's Hourglass \n\n5.) Liandry's Torment \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Lissandra");
+        getChampion(getURL('Lissandra', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Lissandra");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('lucian')){
-        session.send("Lucian\n\n1.) Essence Reaver \n\n2.) Beserker's Boots \n\n3.) Rapid Firecannon \n\n4.) Infinity Edge \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Lucian");
+        getChampion(getURL('Lucian', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Lucian");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('lulu')){
-        session.send("Lulu\n\n1.) Sightstone \n\n2.) Boots of Mobility \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Ardent Censer \n\n6.) Mikael's Crucible\n\nhttp://champion.gg/champion/Lulu");
+        getChampion(getURL('Lulu', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Lulu");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('lux')){
-        session.send("Lux\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Lux");
+        getChampion(getURL('Luz', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Lux");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('malphite')){
-        session.send("Malphite\n\n1.) Sunfire Cape \n\n2.)Ninja Tabi \n\n3.) Iceborn Gauntlet \n\n4.) Spirit Visage \n\n5.) Randuin's Omen \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Malphite");
+        getChampion(getURL('Malphite', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Malphite");}, 350);
       }
        else if(session.message.text.toLowerCase().contains('malzahar')){
-        session.send("Malzahar\n\n1.) Sightstone \n\n2.) Rylai's Crystal Scepter \n\n3.) Ionian Boots of Lucidity \n\n4.) Liandry's Torment \n\n5.) Void Staff \n\n6.) Morellonomicon\n\nhttp://champion.gg/champion/Malzahar");
+        getChampion(getURL('Malzahar', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Malzahar");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('maoki')){
-        session.send("Maoki\n\n1.) Sunfire Cape \n\n2.) Mercury Treads \n\n3.) Spirit Visage \n\n4.) Iceborn Gauntlet \n\n5.) Guardian Angel \n\n6.) Thornmail\n\nhttp://champion.gg/champion/Maoki");
+        getChampion(getURL('Maoki', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Maoki");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('fortune')){
-        session.send("Miss Fortune\n\n1.) Youmuu's Ghostblade \n\n2.) Beserker's Greaves \n\n3.) Black Cleaver \n\n4.) Edge of Night \n\n5.) Duskblade of Draktharr \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/MissFortune");
+        getChampion(getURL('MissFortune', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/MissFortune");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('mordekaiser')){
-        session.send("Mordekaiser\n\n1.) Hextech Gunblade \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Zhonya's Hourglass \n\n6.) Abyssal Scepter\n\nhttp://champion.gg/champion/Mordekaiser");
+        getChampion(getURL('Mordekaiser', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Moerdekaiser");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('master')){
-        session.send("Master Yi\n\n1.) Skirmishers: Bloodrazer \n\n2.) Beserker's Greaves \n\n3.) Blade of the Ruined King \n\n4.) Youmuu's Ghostblade \n\n5.) Maw of Malmortius \n\n6.) Frozen Mallet\n\nhttp://champion.gg/champion/MasterYi");
+        getChampion(getURL('MasterYi', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/MasterYi");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('morgana')){
-        session.send("Morgana\n\n1.) Sightstone \n\n2.) Frost Queen's Claim \n\n3.) Boot of Mobility \n\n4.) Redemption \n\n5.) Zhonya's Hourglass \n\n6.) Locket of the Iron Solari\n\nhttp://champion.gg/champion/Morgana");
+        getChampion(getURL('Morgana', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Morgana");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('nami')){
-        session.send("Nami\n\n1.) Sightstone \n\n2.) Boots of Mobility \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Mikael's Crucible \n\n6.) Ardent Censer\n\nhttp://champion.gg/champion/Nami");
+        getChampion(getURL('Nami', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nami");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('nasus')){
-        session.send("Nasus\n\n1.) Frozen Heart \n\n2.) Mercury Treads \n\n3.) Trinity Force \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Thornmail\n\nhttp://champion.gg/champion/Nasus");
+        getChampion(getURL('Nasus', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nasus");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('naut')){
-        session.send("Nautilus\n\n1.) Sunfire Cape \n\n2.) Mercury Treads \n\n3.) Iceborn Gauntlet \n\n4.) Spirit Visage \n\n5.) Randuin's Omen \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Nautilus");
+       getChampion(getURL('Nautilus', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nautilus");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('nidalee')){
-        session.send("Nidalee\n\n1.) Skirmishers: Runic Echos \n\n2.) Ionian Boots of Lucidity \n\n3.) Rod of Ages \n\n4.) Rylai's Crystal Scepter \n\n5.) Void Staff \n\n6.) Mejai's Soulstealer\n\nhttp://champion.gg/champion/Nidalee");
+        getChampion(getURL('Nidalee', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nidalee");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('nocturne')){
-        session.send("Noctourne\n\n1.) Stalkers: Bloodrazer \n\n2.) Mercury Treads \n\n3.) Blade of the Ruined King \n\n4.) Frozen Mallet \n\n5.) Dead Man's Plate \n\n6.) Banshee's Veil\n\nhttp://champion.gg/champion/Nocturne");
+        getChampion(getURL('nocturne', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nocturne");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('nunu')){
-        session.send("Nunu in 2017, LUL \n\n1.) Trackers: Cinderhulk \n\n2.) Mercury Treads \n\n3.) Locket of the Iron Solari \n\n4.) Redemption \n\n5.) Spirit Visage \n\n6.) Frozen Heart\n\nhttp://champion.gg/champion/Nunu");
+        getChampion(getURL('Nunu', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Nunu");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('olaf')){
-        session.send("Olaf\n\n1.) Stalkers: Cinderhulk \n\n2.) Ionian Boots of Lucidity \n\n3.) Spirit Visage \n\n4.) Dead Man's Plate \n\n5.) Guardian Angel \n\n6.) Randuin's Omen\n\nhttp://champion.gg/champion/Olaf");
+        getChampion(getURL('Olaf', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Olaf");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('orianna')){
-        session.send("Orianna\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Orianna");
+        getChampion(getURL('Orianna', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Orianna");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('pantheon')){
-        session.send("Pantheon\n\n1.) Youmuu's Ghostblade \n\n2.) Mercury Treads \n\n3.) Black Clever \n\n4.) Dead Man's Plate \n\n5.) Maw of Malmortius \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Pantheon");
+        getChampion(getURL('Pantheon', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Pantheon");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('poppy')){
-        session.send("Poppy\n\n1.) Sunfire Cape \n\n2.) Mercury Treads \n\n3.) Iceborn Gauntlet \n\n4.) Spirit Visage \n\n5.) Guardian Angel \n\n6.) Thornmail\n\nhttp://champion.gg/champion/Poppy");
+        getChampion(getURL('Poppy', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Poppy");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('quinn')){
-        session.send("Quinn\n\n1.) Youmuu's Ghostblade \n\n2.) Beserker's Greaves \n\n3.) Duskblade of Draktharr \n\n4.) Statikk Shiv \n\n5.) Infinty Edge \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Quinn");
+        getChampion(getURL('Quinn', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Quinn");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('rammus')){
-        session.send("Rammus\n\n1.) Stalkers: Cinderhulk \n\n2.) Ninja Tabi \n\n3.) Thornmail \n\n4.) Dead Man's Plate \n\n5.) Randuin's Omen \n\n6.) Spirit Visage\n\nhttp://champion.gg/champion/Rammus");
+        getChampion(getURL('Rammus', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Rammus");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('rek')){
-        session.send("Rek'sai\n\n1.) Stalkers: Cinderhulk \n\n2.) Ninja Tabi \n\n3.) Titanic Hydra \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/RekSai");
+        getChampion(getURL('RekSai', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/RekSai");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('renekton')){
-        session.send("Renekton\n\n1.) Black Cleaver \n\n2.) Ninja Tabi \n\n3.) Titanic Hydra \n\n4.) Randuin's Omen \n\n5.) Spirit Visage \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Renekton");
+        getChampion(getURL('Renekton', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Renekton");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('rengar')){
-        session.send("Rengar\n\n1.) Skirmishers: Warrior \n\n2.) Ionain Boots of Lucidity \n\n3.) Youmuu's Ghostblade \n\n4.) Infinty Edge \n\n5.) Ravenous Hydra \n\n6.) Duskblade of Draktharr\n\nhttp://champion.gg/champion/Rengar");
+        getChampion(getURL('Rengar', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Rengar");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('riven')){
-        session.send("Riven\n\n1.) Youmuu's Ghostblade \n\n2.) Ionian Boots of Lucidity \n\n3.) Edge of Night \n\n4.) Duskblade of Draktharr \n\n5.) Ravenous Hydra \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Riven");
+        getChampion(getURL('Riven', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Riven");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('rumble')){
-        session.send("Rumble\n\n1.) Liandry's Torment \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Zhonya's Hourglass \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Rumble");
+        getChampion(getURL('Rumble', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Rumble");}, 350);;
       }
     else if(session.message.text.toLowerCase().contains('ryze')){
-        session.send("Ryze\n\n1.) Rod of Ages \n\n2.) Ionian Boots of Lucidity \n\n3.) Morellonomicon \n\n4.) Archangel's Staff \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Ryze");
+        getChampion(getURL('Ryze', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ryze");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('sej')){
-        session.send("Sejuani\n\n1.) Stalkers: Cinderhulk \n\n2.) Ninja Tabi \n\n3.) Dead Man's Plate \n\n4.) Banshee's Veil \n\n5.) Warmog's Armor \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Sejuani");
+        getChampion(getURL('Sejuani', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Sejuani");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('shaco')){
-        session.send("Shaco\n\n1.) Stalkers: Warriors \n\n2.) Boots of Mobility \n\n3.) Duskblade of Draktharr \n\n4.) Infinity Edge \n\n5.) Black Cleaver \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Shaco");
+        getChampion(getURL('Shaco', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Shaco");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('shen')){
-        session.send("Shen\n\n1.) Sunfire Cape \n\n2.) Mercury Treads \n\n3.) Titanic Hydra \n\n4.) Spirit Visage \n\n5.) Randuin's Omen \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Shen");
+        getChampion(getURL('Shen', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Shen");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('shyvana')){
-        session.send("Shyvana\n\n1.) Stalkers: Bloodrazer \n\n2.) Mercury Treads \n\n3.) Titanic Hydra \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Shyvana");
+        getChampion(getURL('Shyvana', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Shyvana");}, 350);;
       }
     else if(session.message.text.toLowerCase().contains('singed')){
-        session.send("Singed\n\n1.) Boots of Swiftness \n\n2.) Righteous Glory \n\n3.) ZZ'Rot Portal \n\n4.) Rylai's Crystal Scepter \n\n5.) Liandry's Torment \n\n6.) Dead Man's Plate\n\nhttp://champion.gg/champion/Singed");
+        getChampion(getURL('Singed', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Singed");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('sion')){
-        session.send("Sion\n\n1.) Sunfire Cape \n\n2.) Ninja Tabi \n\n3.) Spirit Visage \n\n4.) ZZ'Rot Portal \n\n5.) Warmog's Armor \n\n6.) Frozen Heart\n\nhttp://champion.gg/champion/Sion");
+        getChampion(getURL('Sion', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Sion");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('sivir')){
-        session.send("Sivir\n\n1.) Essence Reaver \n\n2.) Beserker's Greaves \n\n3.) Phantom Dancer \n\n4.) Infinity Edge \n\n5.) Lord Dominik's Regards \n\n6.) Blood Thirster\n\nhttp://champion.gg/champion/Sivir");
+        getChampion(getURL('Sivir', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Sivir");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('skarner')){
-        session.send("Skarner\n\n1.) Stalkers: Cinderhulk \n\n2.) Mercury Treads \n\n3.) Trinity Force \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Warmog's Armor\n\nhttp://champion.gg/champion/Skarner");
+        getChampion(getURL('Skarner', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Skarner");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('sona')){
-        session.send("Sona\n\n1.) Sightstone \n\n2.) Sorcerer's Stone \n\n3.) Lich Bane \n\n4.) Redemption \n\n5.) Frost Queen's Claim \n\n6.) Athene's Unholy Grail\n\nhttp://champion.gg/champion/Sona");
+        getChampion(getURL('Sona', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Sona");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('soraka')){
-        session.send("Soraka\n\n1.) Sightstone \n\n2.) Ionian Boots of Lucidity \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Ardent Censer \n\n6.) Mikael's Crucible\n\nhttp://champion.gg/champion/Soraka");
+        getChampion(getURL('Soraka', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Soraka");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('swain')){
-        session.send("Swain\n\n1.) Rod of Ages \n\n2.) Sorcerer's Boots \n\n3.) Zhonya's Hourglass \n\n4.) Spirit Visage \n\n5.) Rylai's Crystal Scepter \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Swain");
+        getChampion(getURL('Swain', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Swain");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('syndra')){
-        session.send("Syndra\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Syndra");
+        getChampion(getURL('Syndra', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Syndra");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('kench')){
-        session.send("Tom Kench\n\n1.) Sightstone \n\n2.) Boots of Swiftness \n\n3.) Face of the Mountain \n\n4.) Locket of the Iron Solari \n\n5.) Dead Man's Plate \n\n6.) Righteous Glory\n\nhttp://champion.gg/champion/TahmKench");
+        getChampion(getURL('TahmKench', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/TahmKench");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('taliyah')){
-        session.send("Taliyah\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Liandry's Torment \n\n5.) Rabadon's Deathcap \n\n6.) Void Staff\n\nhttp://champion.gg/champion/Taliyah");
+        getChampion(getURL('Taliyah', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Taliyah");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('talon')){
-        session.send("Talon\n\n1.) Youmuu's Ghostblade \n\n2.) Ionian Boots of Lucidity \n\n3.) Black Cleaver \n\n4.) Duskblade of Draktharr \n\n5.) Edge of Night \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Talon");
+        getChampion(getURL('Talon', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Talon");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('taric')){
-        session.send("Taric\n\n1.) Sightstone \n\n2.) Boots of Swiftness \n\n3.) Face of the Mountain \n\n4.) Locket of the Iron Solari \n\n5.) Redemption \n\n6.) Zeke's Harbinger\n\nhttp://champion.gg/champion/Taric");
+        getChampion(getURL('Taric', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Taric");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('teemo')){
-        session.send("Teemo\n\n1.) Liandry's Torment \n\n2.) Sorcerer's Boots \n\n3.) Nashor's Tooth \n\n4.) Rylai's Crystal Scepter \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/Teemo");
+        getChampion(getURL('Teemo', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Teemo");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('thresh')){
-        session.send("Thresh\n\n1.) Sightstone \n\n2.) Boots of Mobility \n\n3.) Face of the Mountain \n\n4.) Locket of the Iron Solari \n\n5.) Redemption \n\n6.) Knight's Vow\n\nhttp://champion.gg/champion/Thresh");
+        getChampion(getURL('Thresh', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Thresh");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('tristana')){
-        session.send("Tristana\n\n1.) Beserker's Greaves \n\n2.) Runaan's Hurricane \n\n3.) Infinity Edge \n\n4.) Rapid Firecannon \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Tristana");
+        getChampion(getURL('Tristana', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Tristana");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('trundle')){
-        session.send("Trundle\n\n1.) Ninja Tabi \n\n2.) Trinity Force \n\n3.) Dead Man's Plate \n\n4.) Spirit Visage \n\n5.) Death's Dance \n\n6.) Frozen Heart\n\nhttp://champion.gg/champion/Trundle");
+        getChampion(getURL('Trundle', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Trundle");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('tryndamere')){
-        session.send("Tryndamere\n\n1.) Statikk Shiv \n\n2.) Beserker's Greaves \n\n3.) Infinity Edge \n\n4.) Blade of the Ruined King \n\n5.) Mortal Reminder \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Tryndamere");
+        getChampion(getURL('Tryndamere', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Tryndamere");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('twisted')){
-        session.send("Twisted Fate\n\n1.) Lich Bane \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Zhonya's Hourglass \n\n5.) Void Staff \n\n6.) Rabadon's Deathcap\n\nhttp://champion.gg/champion/TwistedFate");
+        getChampion(getURL('TwistedFate', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/TwistedFate");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('twitch')){
-        session.send("Twitch\n\n1.) Runaan's Hurricane \n\n2.) Beserker's Greaves \n\n3.) Infintiy Edge \n\n4.) Statikk Shiv \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regards\n\nhttp://champion.gg/champion/Twitch");
+        getChampion(getURL('Twitch', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Twitch");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('udyr')){
-        session.send("Udyr\n\n1.) Stalker's: Bloodrazer \n\n2.) Mercury Treads \n\n3.) Trinity Force \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Udyr");
+        getChampion(getURL('Udyr', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Udyr");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('urgot')){
-        session.send("Urgot\n\n1.) Black Cleaver \n\n2.) Manamune \n\n3.) Iceborn Gauntlet \n\n4.) Mercury Treads \n\n5.) Iceborn Gauntlet \n\n6.) Edge of Nightl\n\nhttp://champion.gg/champion/Urgot");
+        getChampion(getURL('Urgot', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Urgot");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('varus')){
-        session.send("Varus\n\n1.) Essence Reaver \n\n2.) Beserker's Greaves \n\n3.) Runaan's Hurricane \n\n4.) Infinity Edge \n\n5.) Lord Dominik's Regards \n\n6.) Mercurial Scimitarl\n\nhttp://champion.gg/champion/Varus");
+        getChampion(getURL('Varus', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Varus");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('vayne')){
-        session.send("Vayne\n\n1.) Statikk Shiv \n\n2.) Beserker's Greaves \n\n3.) Infinity Edge \n\n4.) Phantom Dancer \n\n5.) Blood Thirster \n\n6.) Lord Dominik's Regardsl\n\nhttp://champion.gg/champion/Vayne");
+        getChampion(getURL('Vayne', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Vayne");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('veigar')){
-        session.send("Veigar\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Rabadons's Deathcap \n\n4.) Void Staff \n\n5.) Zhonya's Hourglass \n\n6.) Luden's Echol\n\nhttp://champion.gg/champion/Veigar");
+        getChampion(getURL('Veigar', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Veigar");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('vel')){
-        session.send("Vel'Koz\n\n1.) Morellonomicon \n\n2.) Ionian Boots of Lucidity \n\n3.) Luden's Echo \n\n4.) Rabadons's Deathcap \n\n5.) Rylai's Crystal Scepter  \n\n6.) Zhonya's Hourglassl\n\nhttp://champion.gg/champion/VelKoz");
+        getChampion(getURL('VelKoz', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/VelKoz");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('vi')){
-        session.send("Vi\n\n1.) Stalker's: Warrior \n\n2.) Ninja Tabi \n\n3.) Trinity Force \n\n4.) Dead Man's Plate \n\n5.) Sterak's Gage \n\n6.) Maw of Malmortiusl\n\nhttp://champion.gg/champion/Vi");
+        getChampion(getURL('Vi', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Vi");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('viktor')){
-        session.send("Viktor\n\n1.) Perfect Hexcore \n\n2.) Sorcerer's Boots \n\n3.) Rylai's Crystal Scepter \n\n4.) Lich Bane \n\n5.) Void Staff \n\n6.) Rabadon's Deathcapl\n\nhttp://champion.gg/champion/Viktor");
+        getChampion(getURL('Viktor', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Viktor");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('vlad')){
-        session.send("Vladimir\n\n1.) Hextech Protobelt-01 \n\n2.) Ionian Boots of Lucidity \n\n3.) Spirit Visage \n\n4.) Rylai's Crystal Scepter \n\n5.) Zhonya's Hourglass \n\n6.) Liandry's Tormentl\n\nhttp://champion.gg/champion/Vladimir");
+        getChampion(getURL('Vladimir', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Vladimir");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('volibear')){
-        session.send("Volibear\n\n1.) Stalker's: Cinderhulk \n\n2.) Mercury Treads \n\n3.) Dead Man's Plate \n\n4.) Spirit Visage \n\n5.) Thornmail \n\n6.) Warmog's Armorl\n\nhttp://champion.gg/champion/Volibear");
+        getChampion(getURL('Volibear', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Volibear");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('warwick')){
-        session.send("Warwick\n\n1.) Stalker's: Cinderhulk \n\n2.) Titanic Hydra \n\n3.) Mercury Treads \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Blade of the Ruined Kingl\n\nhttp://champion.gg/champion/Warwick");
+        getChampion(getURL('Warwick', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Warwick");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('weed wick')){
-        session.send("Warwick\n\n1.) Stalker's: Cinderhulk \n\n2.) Titanic Hydra \n\n3.) Mercury Treads \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Blade of the Ruined Kingl\n\nhttp://champion.gg/champion/Warwick");
+        getChampion(getURL('Warwick', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Warwick");}, 350);
       }
       else if(session.message.text.toLowerCase().contains('weedwick')){
-        session.send("Warwick\n\n1.) Stalker's: Cinderhulk \n\n2.) Titanic Hydra \n\n3.) Mercury Treads \n\n4.) Spirit Visage \n\n5.) Dead Man's Plate \n\n6.) Blade of the Ruined King\n\nhttp://champion.gg/champion/Warwick");
+        getChampion(getURL('Warwick', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Warwick");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('wukong')){
-        session.send("Wukong\n\n1.) Stalker's: Warrior \n\n2.) Mercury Treads \n\n3.) Black Cleaver \n\n4.) Dead Man's Plate \n\n5.) Maw of Malmortius \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Wukong");
+        getChampion(getURL('Wukong', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Wukong");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('xerath')){
-        session.send("Xerath\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Xerath");
+        getChampion(getURL('Xerath', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Xerath");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('xin')){
-        session.send("Xin Zhao\n\n1.) Skirmishers: Bloodrazer \n\n2.) Mercury Treads \n\n3.) Trinity Force \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Blade of the Ruined King\n\nhttp://champion.gg/champion/Xin");
+        getChampion(getURL('Xin', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Xin");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('yasuo')){
-        session.send("Yasuo\n\n1.) Phantom Dancer \n\n2.) Beserker's Greaves \n\n3.) Infintiy Edge \n\n4.) Blood Thirster \n\n5.) Frozen Mallet \n\n6.) Guardian Angel\n\nhttp://champion.gg/champion/Yasuo");
+        getChampion(getURL('Yasuo', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Yasuo");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('yorick')){
-        session.send("Yorick\n\n1.) Trinity Force \n\n2.) Mercury Treads \n\n3.) ZZ'Rot Portal \n\n4.) Dead Man's Plate \n\n5.) Spirit Visage \n\n6.) Randuin's Omen\n\nhttp://champion.gg/champion/Yorick");
+        getChampion(getURL('Yorick', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Yorick");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('zac')){
-        session.send("Zac\n\n1.) Stalker's: Cinderhulk \n\n2.) Ionian Boots of Lucidity \n\n3.) Spirit Visage \n\n4.) Randuin's Omen \n\n5.) Guardian Angel \n\n6.) Thornmail\n\nhttp://champion.gg/champion/Zac");
+        getChampion(getURL('Zac', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Zac");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('zed')){
-        session.send("Zed\n\n1.) Youmuu's Ghostblade \n\n2.) Mercury Treads \n\n3.) Duskblade of Draktharr \n\n4.) Black Cleaver \n\n5.) Maw of Malmortius \n\n6.) Blade of the Ruined King\n\nhttp://champion.gg/champion/Zed");
+        getChampion(getURL('Zed', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Zed");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('ziggs')){
-        session.send("Ziggs\n\n1.) Morellonomicon \n\n2.) Sorcerer's Boots \n\n3.) Luden's Echo \n\n4.) Rabadon's Deathcap \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Ziggs");
+        getChampion(getURL('Ziggs', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ziggs");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('zilean')){
-        session.send("Zilean\n\n1.) Sightstone \n\n2.) Ionian Boots of Lucidity \n\n3.) Redemption \n\n4.) Locket of the Iron Solari \n\n5.) Talisman of Ascension \n\n6.) Zeke's Harbinger\n\nhttp://champion.gg/champion/Zilean");
+        getChampion(getURL('Zilean', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Zilean");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('zyra')){
-        session.send("Zyra\n\n1.) Sightstone \n\n2.) Sorcerer's Boots \n\n3.) Liandry's Torment \n\n4.) Rylai's Crystal Scepter \n\n5.) Void Staff \n\n6.) Zhonya's Hourglass\n\nhttp://champion.gg/champion/Zyra");
+        getChampion(getURL('Zyra', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Zyra");}, 350);
       }
     
       else{
