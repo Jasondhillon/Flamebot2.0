@@ -42,7 +42,7 @@ function getChampion(url, session){
             }
             message += '  \n--------------------------------------------';
             message += '  \n**Highest Win Percentage Items:**'
-            for(var i = 0; i<6; i++){
+            for(var i = 0; i<json[j].items.highestWinPercent.items.length; i++){
               message += '  \n'+(json[j].items.highestWinPercent.items[i].name) + '\n';
             }
             message += '  \n--------------------------------------------';
