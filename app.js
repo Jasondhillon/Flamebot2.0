@@ -477,6 +477,10 @@ bot.dialog('/', function (session) {
         getChampion(getURL('RekSai', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/RekSai");}, 350);
       }
+    else if(session.message.text.toLowerCase().contains('rakan')){
+        getChampion(getURL('RekSai', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Rakan");}, 350);
+      }
     else if(session.message.text.toLowerCase().contains('renekton')){
         getChampion(getURL('Renekton', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Renekton");}, 350);
@@ -644,6 +648,10 @@ bot.dialog('/', function (session) {
     else if(session.message.text.toLowerCase().contains('wukong')){
         getChampion(getURL('Wukong', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Wukong");}, 350);
+      }
+    else if(session.message.text.toLowerCase().contains('xayah')){
+        getChampion(getURL('RekSai', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Xayah");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('xerath')){
         getChampion(getURL('Xerath', session));
