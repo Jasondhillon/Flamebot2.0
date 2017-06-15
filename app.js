@@ -109,7 +109,23 @@ hello = ["Hey, fuck face", "What do you want, ass fuck", "Fuck off, I'm masterba
 var unk;
 unk = ["Someone kick this nipple licker", "ENGLISH MOTHERFUCKER, DO YOU SPEAK IT!", "Kill yourself", "Who are you again?", "You're a failed abortion whose birth certificate is an apology from the condom factory.", "You must have been born on a highway, because that's where most accidents happen.", "You are so ugly that when your mama dropped you off at school she got a fine for littering.", "My team is so bad they can't even win a surrender vote", "not even noah can carry you animals gg", "You are a fucking worthless braindead scumfuck mental bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are", "Check your spelling, you autistic fuck", "You are nothing other than a completely worthless league playing plague to society neet parasitic oxygen thief that will never be anything more than a complete disappointment to not only their parents but to everyone who has ever crossed paths with them and their disgusting form"];
 
+function getInsult (){
+  message = '';
+  var http = require('http');
 
+  http.get('insult.mattbas.org/api/en/insult.json', function(res){
+      var body = '';
+      res.on('data', function(chunk){
+          body += chunk;
+      });
+
+      res.on('end', function(){
+          var json =  JSON.parse(body);
+          message += json.insult +'\n';
+      });
+  });
+  return message;
+}
 
 bot.dialog('/', function (session) {
     if(session.message.text.toLowerCase().contains('hello')){
@@ -478,7 +494,7 @@ bot.dialog('/', function (session) {
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/RekSai");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('rakan')){
-        getChampion(getURL('RekSai', session));
+        getChampion(getURL('Rakan', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Rakan");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('renekton')){
@@ -650,7 +666,7 @@ bot.dialog('/', function (session) {
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Wukong");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('xayah')){
-        getChampion(getURL('RekSai', session));
+        getChampion(getURL('Xayah', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Xayah");}, 350);
       }
     else if(session.message.text.toLowerCase().contains('xerath')){
@@ -691,8 +707,9 @@ bot.dialog('/', function (session) {
       }
     
       else{
-        var rando2 = Math.floor((Math.random() * 11));;
-        session.send(unk[rando2]);
+        //var rando2 = Math.floor((Math.random() * 11));;
+        //session.send(unk[rando2]);
+        session.send(getInsult);
       }
 
 });
