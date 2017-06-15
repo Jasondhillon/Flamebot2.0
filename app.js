@@ -32,7 +32,7 @@ function getChampion(url, session){
           message += '**['+json[0].key+']**  \n';
 
           for(var j = 0; j<json.length; j++){
-            message += json[j].role + '  \n';
+            message += '---***'+json[j].role+'***---' + '  \n';
             if(j == 1){
 
             }else{
@@ -68,43 +68,43 @@ function getChampion(url, session){
             message += '  \n'+(json[0].masteries.mostGames.masteries[i].tree)+': ' + (json[0].masteries.mostGames.masteries[i].total);
           }
           for(var i = 0;i<json[0].masteries.mostGames.masteries.length; i++){
-            for(var j = 0; j <json[0].masteries.mostGames.masteries[i].data.length; j++){
-                  if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6161){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+            for(var k = 0; k <json[0].masteries.mostGames.masteries[i].data.length; k++){
+                  if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6161){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Warlord\'s Bloodlust';
                   }
                   
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6162){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6162){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Fervor of Battle';
                     }
 
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6164){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6164){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Deathfire\'s touch';
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6361){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6361){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Stormraider\'s Surge';
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6362){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6362){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Thunderlord\'s Decree';
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6363){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6363){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Windspeaker\'s Blessing' ;
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6261){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6261){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Grasp of the Undying';
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6262){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6262){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Courage of the Colossus';
                     }
-                  }else if(json[0].masteries.mostGames.masteries[i].data[j].mastery == 6263){
-                    if(json[0].masteries.mostGames.masteries[i].data[j].points == 1){
+                  }else if(json[0].masteries.mostGames.masteries[i].data[k].mastery == 6263){
+                    if(json[0].masteries.mostGames.masteries[i].data[k].points == 1){
                     message+= ' \n\n KeyStone Mastery: Stoneborn Pact';
                     }
                   }
@@ -112,6 +112,8 @@ function getChampion(url, session){
           }
         
             message += '  \n\n--------------------------------------------\n';
+             message += '  \n\n--------------------------------------------\n';
+              message += '  \n\n--------------------------------------------\n';
           }
           return message;
       });
