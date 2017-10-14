@@ -19,7 +19,7 @@ var message = '';
 function getChampion(url, session){
   message = '';
   var http = require('http');
-  getInsult(session);
+  getInsult();
 
   http.get(url, function(res){
       var body = '';
