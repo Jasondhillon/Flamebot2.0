@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "botbuilder": "^3.8.4",
+    "botbuilder": "^3.11.0",
     "restify": "^4.3.0",
     "xmlhttprequest": "^1.8.0"
   },
