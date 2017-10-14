@@ -155,12 +155,43 @@ String.prototype.contains = function(content){
 var hello;
 hello = ["Hey, fuck face", "What do you want, ass fuck", "Fuck off, I'm masterbating", "What's up?", "Whattttttt", "Hi bronzie", "...what.", "New phone, who dis"];
 var unk;
-unk = ["Someone kick this nipple licker", "ENGLISH MOTHERFUCKER, DO YOU SPEAK IT!", "Kill yourself", "Who are you again?", "You're a failed abortion whose birth certificate is an apology from the condom factory.", "You must have been born on a highway, because that's where most accidents happen.", "You are so ugly that when your mama dropped you off at school she got a fine for littering.", "My team is so bad they can't even win a surrender vote", "not even noah can carry you animals gg", "You are a fucking worthless braindead scumfuck mental bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are", "Check your spelling, you autistic fuck", "You are nothing other than a completely worthless league playing plague to society neet parasitic oxygen thief that will never be anything more than a complete disappointment to not only their parents but to everyone who has ever crossed paths with them and their disgusting form"];
+unk = ["You eat ass, don't you, you nasty fuck",
+  "Kill yourself, you feeding piece of human garbage",
+   "You're a failed abortion whose birth certificate is an apology from the condom factory.",
+    "You must have been born on a highway, because that's where most accidents happen.",
+     "You are so ugly that when your mama dropped you off at school she got a fine for littering.",
+      "My team is so bad they can't even win a surrender vote", "not even noah can carry you animals gg", 
+      "You are a fucking worthless braindead scumfuck mental bastard pile of trash mental dickface that should be gunned down in the street like the degenerate you are",
+        "You are nothing other than a completely worthless league playing plague to society neet parasitic oxygen thief that will never be anything more than a complete disappointment to not only their parents but to everyone who has ever crossed paths with them and their disgusting form",
+        "If I were to commit suicide, I would jump from your ego to your elo",
+        "The only thing you carry is an extra chromosome",
+        "You don't need damage when you can harass with verbal abuse",
+        "Please buy 40% CDR so we can see you fail more",
+        "I would say you're cancer, but at least cancer kills",
+        "On the 7th day, God noticed that the humans had nothing to eat, so God gave them botlane",
+        "I thought I put bots on hard, why are they on easy?",
+        "Did you know that league is free to uninstall?",
+        "League is too hard for you m8 maybe consider a game that requires less skill, like idk.... solitaire?",
+        "I thought I already finished chemistry.. So much NaCl around here.",
+        "You are more toxic than twitches asshole",
+        "Even my grandma can use a computer better than you, and you only have 6 keys to press",
+        "now = is more toxic than the beaches at Fukushima",
+        "you feed so hard the ppl in africa are not going to starve anymore",
+        "You could end world hunger with how much you feed",
+        "At least your ping knows how to high score",
+        "Some babies were dropped on their heads but you were clearly thrown at a wall",
+        "I'm not trash talking, I'm talking to trash",
+        "If I could trade you for a player id trade u for a bot at least they know how to play as a team",
+        "There are about 37 trillion cells working together in your body right now, and you are disappointing every single one of them.",
+        "Legend has it that the number 0 was first invented after scientists calculated your chance of doing something useful.",
+        "Did you take lessons from a bronze 5 player",
+        "did you know you can bite your finger off as easy as you can bite through a baby carrot it seems like u did that to all your fingers",
+        "You're the type of player to get 3rd place in a 1v1 match",
+        "bro stop jacking off and play with 2 hands"];
 
 
-function getInsult(session){
+function getInsultOnline(session){
   var http = require('https');
-  var insult2 = '';
 
   http.get("https://insult.mattbas.org/api/en/insult.json", function(res){
       var body = '';
@@ -177,6 +208,10 @@ function getInsult(session){
           
       });
   });
+}
+
+function getInsult(){
+  insult = unk(random()*unk.length);
 }
 
 bot.dialog('/', function (session) {
@@ -420,6 +455,10 @@ bot.dialog('/', function (session) {
         getChampion(getURL('Kayle', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kayle\n\n"+ insult);}, 800);
       }
+      else if(session.message.text.toLowerCase().contains('kayn')){
+        getChampion(getURL('Kayle', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kayn\n\n"+ insult);}, 800);
+      }
       else if(session.message.text.toLowerCase().contains('kennen')){
         getChampion(getURL('Kennen', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kennen\n\n"+ insult);}, 800);
@@ -527,6 +566,10 @@ bot.dialog('/', function (session) {
     else if(session.message.text.toLowerCase().contains('orianna')){
         getChampion(getURL('Orianna', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Orianna\n\n"+ insult);}, 800);
+      }
+      else if(session.message.text.toLowerCase().contains('ornn')){
+        getChampion(getURL('Orianna', session));
+       setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ornn\n\n"+ insult);}, 800);
       }
     else if(session.message.text.toLowerCase().contains('pantheon')){
         getChampion(getURL('Pantheon', session));
@@ -765,7 +808,7 @@ bot.dialog('/', function (session) {
         //var rando2 = Math.floor((Math.random() * 11));;
         //session.send(unk[rando2]);
         getInsult(session);
-        setTimeout(function (){session.send( insult + " " );}, 800);
+        setTimeout(function (){session.send( insult + " (Invalid command)" );}, 800);
         
         
       }
