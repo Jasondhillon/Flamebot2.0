@@ -120,6 +120,9 @@ function getChampion(url, session){
   });
 }
 
+server.on('uncaughtException', function (err) {
+  console.log(err);
+}); 
 
 function getURL(champion){
     return url = 'http://api.champion.gg/champion/'+champion+'?api_key=dd088c0e77c1739a23660410de9edb12';
