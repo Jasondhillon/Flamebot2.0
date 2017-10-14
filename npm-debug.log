@@ -1,0 +1,81 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\nodejs\\node.exe',
+1 verbose cli   'D:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '–-save',
+1 verbose cli   'botbuilder' ]
+2 info using npm@3.10.10
+3 info using node@v6.9.5
+4 error arg Argument starts with non-ascii dash, this is probably invalid: [ '–-save', 'botbuilder' ]
+5 silly loadCurrentTree Starting
+6 silly install loadCurrentTree
+7 silly install readLocalPackageData
+8 silly fetchPackageMetaData –-save
+9 silly fetchPackageMetaData botbuilder@^3.5.0
+10 silly fetchNamedPackageData botbuilder
+11 silly mapToRegistry name botbuilder
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry data Result {
+14 silly mapToRegistry   raw: 'botbuilder',
+14 silly mapToRegistry   scope: null,
+14 silly mapToRegistry   escapedName: 'botbuilder',
+14 silly mapToRegistry   name: 'botbuilder',
+14 silly mapToRegistry   rawSpec: '',
+14 silly mapToRegistry   spec: 'latest',
+14 silly mapToRegistry   type: 'tag' }
+15 silly mapToRegistry uri https://registry.npmjs.org/botbuilder
+16 silly fetchOtherPackageData –-save
+17 silly cache add args [ '–-save', null ]
+18 verbose cache add spec –-save
+19 silly cache add parsed spec Result {
+19 silly cache add   raw: '–-save',
+19 silly cache add   scope: null,
+19 silly cache add   escapedName: null,
+19 silly cache add   name: null,
+19 silly cache add   rawSpec: '–-save',
+19 silly cache add   spec: 'C:\\Users\\jsndh\\OneDrive\\Documents\\Flamebot2.0\\–-save',
+19 silly cache add   type: 'local' }
+20 error addLocal Could not install C:\Users\jsndh\OneDrive\Documents\Flamebot2.0\–-save
+21 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open 'C:\Users\jsndh\OneDrive\Documents\Flamebot2.0\–-save'
+21 silly fetchPackageMetaData     at Error (native)
+21 silly fetchPackageMetaData  error for –-save { Error: ENOENT: no such file or directory, open 'C:\Users\jsndh\OneDrive\Documents\Flamebot2.0\–-save'
+21 silly fetchPackageMetaData     at Error (native)
+21 silly fetchPackageMetaData   errno: -4058,
+21 silly fetchPackageMetaData   code: 'ENOENT',
+21 silly fetchPackageMetaData   syscall: 'open',
+21 silly fetchPackageMetaData   path: 'C:\\Users\\jsndh\\OneDrive\\Documents\\Flamebot2.0\\–-save' }
+22 verbose request uri https://registry.npmjs.org/botbuilder
+23 verbose request no auth needed
+24 info attempt registry request try #1 at 1:27:51 AM
+25 verbose request id 0fe19b319212f0e8
+26 verbose etag W/"59d6cd5f-198c8"
+27 verbose lastModified Fri, 06 Oct 2017 00:25:03 GMT
+28 http request GET https://registry.npmjs.org/botbuilder
+29 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+30 info attempt registry request try #2 at 1:28:01 AM
+31 verbose etag W/"59d6cd5f-198c8"
+32 verbose lastModified Fri, 06 Oct 2017 00:25:03 GMT
+33 http request GET https://registry.npmjs.org/botbuilder
+34 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+35 verbose stack Error: kill ENOSYS
+35 verbose stack     at exports._errnoException (util.js:1022:11)
+35 verbose stack     at process.kill (internal/process.js:172:13)
+35 verbose stack     at process.listener (D:\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:86:15)
+35 verbose stack     at emitNone (events.js:91:20)
+35 verbose stack     at process.emit (events.js:185:7)
+35 verbose stack     at processEmit (D:\nodejs\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+35 verbose stack     at processEmit (D:\nodejs\node_modules\npm\node_modules\npm-registry-client\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+35 verbose stack     at Signal.wrap.onsignal (internal/process.js:199:44)
+36 verbose cwd C:\Users\jsndh\OneDrive\Documents\Flamebot2.0
+37 error Windows_NT 10.0.15063
+38 error argv "D:\\nodejs\\node.exe" "D:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "–-save" "botbuilder"
+39 error node v6.9.5
+40 error npm  v3.10.10
+41 error code ENOSYS
+42 error errno ENOSYS
+43 error syscall kill
+44 error kill ENOSYS
+45 error If you need help, you may report this error at:
+45 error     <https://github.com/npm/npm/issues>
+46 verbose exit [ 1, true ]
