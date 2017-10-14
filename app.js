@@ -175,7 +175,7 @@ unk = ["You eat ass, don't you, you nasty fuck",
         "I thought I already finished chemistry.. So much NaCl around here.",
         "You are more toxic than twitches asshole",
         "Even my grandma can use a computer better than you, and you only have 6 keys to press",
-        "now = is more toxic than the beaches at Fukushima",
+        "You're more toxic than the beaches at Fukushima",
         "you feed so hard the ppl in africa are not going to starve anymore",
         "You could end world hunger with how much you feed",
         "At least your ping knows how to high score",
@@ -211,7 +211,7 @@ function getInsultOnline(session){
 }
 
 function getInsult(){
-  insult = unk(random()*unk.length);
+  insult = unk[Math.floor(Math.random() * unk.length)];
 }
 
 bot.dialog('/', function (session) {
@@ -456,7 +456,7 @@ bot.dialog('/', function (session) {
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kayle\n\n"+ insult);}, 800);
       }
       else if(session.message.text.toLowerCase().contains('kayn')){
-        getChampion(getURL('Kayle', session));
+        getChampion(getURL('Kayn', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Kayn\n\n"+ insult);}, 800);
       }
       else if(session.message.text.toLowerCase().contains('kennen')){
@@ -568,7 +568,7 @@ bot.dialog('/', function (session) {
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Orianna\n\n"+ insult);}, 800);
       }
       else if(session.message.text.toLowerCase().contains('ornn')){
-        getChampion(getURL('Orianna', session));
+        getChampion(getURL('Ornn', session));
        setTimeout(function (){session.send(message + "<br/><br/>http://champion.gg/champion/Ornn\n\n"+ insult);}, 800);
       }
     else if(session.message.text.toLowerCase().contains('pantheon')){
