@@ -154,12 +154,12 @@ String.prototype.contains = function(content){
   return this.indexOf(content) !== -1;
 }
 var hello;
-hello = ["Hey there", "What's up?", "Hello", "Hi bronzie", "...what.", "How's it going?", "Need something?"];
+hello = ["Hey there!", "What's up?", "Hello!", "How's it going?", "Need something?"];
 
 bot.dialog('/', function (session) {
-    if(session.message.text.toLowerCase().contains('hello')){
-      var rando = Math.floor((Math.random() * 7 ));
-      session.send(hello[rando]);
+    if(session.message.text.toLowerCase().contains('hi')){
+      var rando = Math.floor((Math.random() * 5 ));
+      session.send(hello[rando] + '\nTo get started, type the name of a league of legends champion\nand I will fetch their builds for you!');
     }
     else if(session.message.text.toLowerCase().contains('aatrox')){
        getChampion(getURL('aatrox', session));
