@@ -28,6 +28,9 @@ function getChampion(url, session){
 
       res.on('end', function(){
           var json =  JSON.parse(body);
+          while(json == null){
+            setTimeout(function (){json =  JSON.parse(body);}, 500);
+          }
           message += '**['+json[0].key+']**  \n';
 
           for(var j = 0; j<json.length; j++){
